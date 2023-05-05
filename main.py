@@ -44,10 +44,12 @@ def add_note(notes):
         else:
             if save_note == "1":
                 save_notes(notes)
+                print('Сохранено')
                 break
             else:
                 break
-    return notes
+    input('\n"Enter - возврат в меню >> ')
+    menu()
 
 # Функция показа записей
 
@@ -59,18 +61,21 @@ def show_notes(notes):
         menu()
     else:
         for note in notes:
-            print(f'ID: {note["id"]}')
-            print(f'TITLE: {note["title"]}')
-            print(f'TEXT: {note["text"]}')
-            print(f'TIME: {note["time_marker"]}')
+            print(f'ID: {note["ID"]}')
+            print(f'TITLE: {note["TITLE"]}')
+            print(f'TEXT: {note["TEXT"]}')
+            print(f'TIME: {note["TIME"]}')
             print('_________________')
 
+        input('\n"Enter - возврат в меню >> ')
+        menu()
 
 # Функция записи в файл JSON
 
+
 def save_notes(note):
-    with open(file_notes, 'a', encoding='utf-8') as data:
-        json.dump(note, data, ensure_ascii=True)
+    with open(file_notes, 'w', encoding='utf-8') as data:
+        json.dump(note, data, ensure_ascii=False, indent=4)
 
 
 # Функция меню
