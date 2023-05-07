@@ -78,6 +78,72 @@ def save_notes(note):
         json.dump(note, data, ensure_ascii=False, indent=4)
 
 
+# Функция поиска записи
+def search_note(notes):
+    os.system("cls")
+    menu = ('Найти запись по:\n'
+            '1 - ID\n'
+            '2 - Имя записи\n'
+            '3 - Ключевые слова\n'
+            '4 - Дате добавления/изменения\n'
+            '0 - Выход')
+    print(menu)
+    fail_answer = 5
+    while fail_answer > 0:
+        answer = input('Введите номер действия:>> ')
+        if not answer.isdigit():
+            print('Нужно ввести число от 1 до 4')
+            fail_answer -= 1
+            continue
+        else:
+            if answer == '1':
+                os.system("cls")
+                search_id = input('Введите ID записи: ')
+                if not search_id.isdigit:
+                    print('ID должен быть числом')
+                    continue
+                else:
+                    for note in notes:
+                        if note[0] == search_id:
+                            print(note)
+                            return note[0]
+                print(menu)
+            if answer == '2':
+                os.system("cls")
+                result = []
+                search_title = input('Введите имя записи: ')
+                for note in notes:
+                    if note[1] == search_title:
+                        result.append(note)
+                        print(note)
+                        return result
+                    else:
+                        print('Записи с таким именем нетю')
+            if answer == '3':
+                os.system("cls")
+                delete_note(notes)
+                print(menu)
+            if answer == '4':
+                os.system("cls")
+                search_note(notes)
+                print(menu)
+            if answer == '5':
+                os.system("cls")
+                edit_note()
+                print(menu)
+            if answer == '0':
+                exit(0)
+
+    print('Похоже, вы делаете что-то не так((')
+    exit(0)
+        
+
+
+# Функция удаления записи
+
+def delete_note(notes):
+    note = input()
+
 # Функция меню
 
 
@@ -90,8 +156,7 @@ def menu():
             '3 - Удалить заметку\n'
             '4 - Найти заметку\n'
             '5 - Редактировать заметку\n'
-            '6 - Сохранить заметки\n'
-            '7 - Выход')
+            '0 - Выход')
     print(menu)
     notes = read_notes(file_notes)
     fail_answer = 5
@@ -112,21 +177,17 @@ def menu():
                 print(menu)
             if answer == '3':
                 os.system("cls")
-                delete_note()
+                delete_note(notes)
                 print(menu)
             if answer == '4':
                 os.system("cls")
-                search_note()
+                search_note(notes)
                 print(menu)
             if answer == '5':
                 os.system("cls")
                 edit_note()
                 print(menu)
-            if answer == '6':
-                os.system("cls")
-                save_notes()
-                print(menu)
-            if answer == '7':
+            if answer == '0':
                 exit(0)
 
     print('Похоже, вы делаете что-то не так((')
