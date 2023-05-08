@@ -84,8 +84,7 @@ def search_note(notes):
     menu = ('Найти запись по:\n'
             '1 - ID\n'
             '2 - Имя записи\n'
-            '3 - Ключевые слова\n'
-            '4 - Дате добавления/изменения\n'
+            '3 - Дате добавления/изменения\n'
             '0 - Выход')
     print(menu)
     fail_answer = 5
@@ -99,43 +98,49 @@ def search_note(notes):
             if answer == '1':
                 os.system("cls")
                 search_id = input('Введите ID записи: ')
+                
                 if not search_id.isdigit:
                     print('ID должен быть числом')
-                    continue
+                    break
                 else:
                     for note in notes:
-                        if note[0] == search_id:
+                        if note['ID'] == int(search_id):
                             print(note)
-                            return note[0]
+                            break
+                        else:
+                            print('Записи с таким ID нет')
+                            break
+                input('\n"Enter - возврат в меню >> ')
+                os.system("cls")
                 print(menu)
             if answer == '2':
                 os.system("cls")
-                result = []
+                # result = []
                 search_title = input('Введите имя записи: ')
                 for note in notes:
-                    if note[1] == search_title:
-                        result.append(note)
+                    if note['TITLE'] == search_title:
+                        # result.append(note)
                         print(note)
-                        return result
+                        # return result
                     else:
                         print('Записи с таким именем нетю')
+                        break
+                input('\n"Enter - возврат в меню >> ')
+                os.system("cls")
+                print(menu)
             if answer == '3':
                 os.system("cls")
-                delete_note(notes)
-                print(menu)
-            if answer == '4':
-                os.system("cls")
-                search_note(notes)
-                print(menu)
-            if answer == '5':
-                os.system("cls")
-                edit_note()
-                print(menu)
+                search_date = input('Введите дату записи: ')
+                for note in notes:
+                    temp_date = datetime.datetime.strptime(note['TIME'], '%d-%m-%Y %H:%M')
+                    print(temp_date, '1')
+                    if temp_date.date == search_date:
+                        print(note)
+                    else:
+                        print('В этот день записей не было')
+                        break
             if answer == '0':
-                exit(0)
-
-    print('Похоже, вы делаете что-то не так((')
-    exit(0)
+                return
         
 
 
@@ -181,7 +186,12 @@ def menu():
                 print(menu)
             if answer == '4':
                 os.system("cls")
-                search_note(notes)
+                if not notes:
+                    print('К сожалению записей ещё нет ')
+                    break
+                else:
+                    search_note(notes)
+                os.system("cls")
                 print(menu)
             if answer == '5':
                 os.system("cls")
