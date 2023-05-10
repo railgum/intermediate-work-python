@@ -32,7 +32,7 @@ def add_note(notes):
     else:
         id = len(notes) + 1
     title = input('Введите имя записи: ')
-    text = input('Введите текст заметки: ')
+    text = input('Введите текст записи: ')
     time_marker = datetime.datetime.now().strftime('%d-%m-%Y %H:%M')
     note = {'ID': id, 'TITLE': title, 'TEXT': text, 'TIME': time_marker}
     notes.append(note)
